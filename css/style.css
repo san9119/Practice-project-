@@ -1,52 +1,166 @@
-/* style.css v1 — базовые стили */
+/* style.css v2 — базовая стилизация, сетки, hover-эффекты */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --c-primary: #1f3a5f;
+  --c-primary-2: #345b8c;
+  --c-accent:  #ffb703;
+  --c-bg:      #f4f6f9;
+  --c-card:    #ffffff;
+  --c-text:    #222;
+  --c-muted:   #5577aa;
+  --radius:    14px;
+  --shadow:    0 6px 20px rgba(31, 58, 95, .12);
+  --shadow-lg: 0 12px 32px rgba(31, 58, 95, .20);
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-  color: #222;
-  line-height: 1.6;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  line-height: 1.65;
 }
 
 header {
-  background: #1f3a5f;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(135deg, #1f3a5f, #345b8c);
   color: #fff;
-  padding: 20px;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: var(--shadow);
 }
 
-header h1 { font-size: 22px; }
+header h1 {
+  font-size: 20px;
+  letter-spacing: .6px;
+  color: #fff;
+}
 
-nav ul {
+header nav ul {
   list-style: none;
   display: flex;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 22px;
 }
 
-nav a {
+header nav a {
   color: #cfe2ff;
   text-decoration: none;
+  font-weight: 500;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color .25s, border-color .25s;
 }
 
-nav a:hover { color: #fff; }
+header nav a:hover { color: #fff; border-bottom-color: var(--c-accent); }
 
+/* ---------- Основной контейнер ---------- */
 main {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 24px;
-  background: #fff;
+  padding: 40px 24px 60px;
 }
 
-h2 { margin-bottom: 12px; color: #1f3a5f; }
+h2 {
+  font-size: 26px;
+  color: var(--c-primary);
+  margin-bottom: 22px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--c-accent);
+  display: inline-block;
+}
 
-section { margin-bottom: 24px; }
+/* =========================================================
+   УЧАСТНИКИ
+   ========================================================= */
+main > ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
 
+main > ul > li {
+  background: var(--c-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  border-left: 5px solid var(--c-accent);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+main > ul > li:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+main > ul > li strong {
+  display: block;
+  font-size: 17px;
+  color: var(--c-primary);
+  margin-bottom: 4px;
+}
+
+main > ul > li::after {
+  content: "";
+  display: block;
+}
+
+/* =========================================================
+   ЖУРНАЛ
+   ========================================================= */
+main article {
+  background: var(--c-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  border-left: 6px solid var(--c-primary-2);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+main article:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-lg);
+}
+
+main article h3 {
+  color: var(--c-primary);
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+main article p { color: #333; }
+
+main > img {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 28px auto 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---------- Подвал ---------- */
 footer {
   text-align: center;
-  padding: 16px;
-  background: #1f3a5f;
+  padding: 22px;
+  background: var(--c-primary);
   color: #cfe2ff;
-  margin-top: 32px;
+  margin-top: 40px;
+  min-height: 20px;
 }
 
-img { max-width: 100%; }
+/* ---------- Адаптив ---------- */
+@media (max-width: 760px) {
+  header { flex-direction: column; align-items: flex-start; }
+  header nav ul { flex-wrap: wrap; gap: 12px; }
+  main > ul { grid-template-columns: 1fr; }
+}
